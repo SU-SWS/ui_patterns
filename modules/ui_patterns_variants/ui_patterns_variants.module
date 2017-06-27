@@ -343,7 +343,7 @@ function ui_patterns_variants_form_views_ui_edit_display_form_alter(&$form, Form
     $settings += _ui_patterns_variants_get_form_elements($variants, $defaults, $field_options);
   }
 
-  // Override the save function in views in order to add our save logic.
+  // Add a submit handler to add our save logic.
   array_unshift($form['actions']['submit']['#submit'], 'ui_patterns_variants_views_save');
 }
 
