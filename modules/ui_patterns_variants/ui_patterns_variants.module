@@ -200,10 +200,10 @@ function ui_patterns_variants_preprocess_panelizer_view_mode(&$variables) {
 
   // Apply pattern variants to items rendered in panels when available.
   $config = $variables['element']['#panels_display']->getConfiguration();
-  if (!empty($config['layout_settings']['pattern']['variants'])) {
+  if (empty($config['layout_settings']['pattern']['variants'])) {
     return;
   }
-
+  
   // Loop through all of the variant settings and apply them to the template.
   $variant_settings = [];
   foreach ($config['layout_settings']['pattern']['variants'] as $key => $variant) {
