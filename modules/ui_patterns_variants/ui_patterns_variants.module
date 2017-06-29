@@ -203,7 +203,7 @@ function ui_patterns_variants_preprocess_panelizer_view_mode(&$variables) {
   if (empty($config['layout_settings']['pattern']['variants'])) {
     return;
   }
-  
+
   // Loop through all of the variant settings and apply them to the template.
   $variant_settings = [];
   foreach ($config['layout_settings']['pattern']['variants'] as $key => $variant) {
@@ -487,10 +487,20 @@ function _ui_patterns_variants_get_form_elements(array $variants, array $default
       continue;
     }
 
+    // Validation label.
+    if (!isset($variant['label'])) {
+      drupal_set_message(t("%variant_key is missing label", array("%variant_key" => $key)), 'error', FALSE);
+    }
+
+    // Validation description.
+    if (!isset($variant['description'])) {
+      drupal_set_message(t("%variant_key is missing description", array("%variant_key" => $key)), 'error', FALSE);
+    }
+
     $pattern_settings['variants'][$key] = [
       '#type' => 'fieldset',
-      '#title' => $variant['label'],
-      '#description' => isset($variant['description']) ? $variant['description'] : '',
+      '#title' => isset($variant['label']) ? $variant['label'] : t("Missing label"),
+      '#description' => isset($variant['description']) ? $variant['description'] : t('No description.'),
     ];
 
     $available_options = [];
