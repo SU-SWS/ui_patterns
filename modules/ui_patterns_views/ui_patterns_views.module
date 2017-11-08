@@ -39,6 +39,13 @@ function template_preprocess_pattern_views_row(array &$variables) {
     $field_name = $mapping['source'];
     $field = $view->field[$field_name];
     $field_output = $view->style_plugin->getField($row->index, $field_name);
+
+    // If the field or field output is not mapped or mapped incorectly
+    // just continue over.
+    if (!$field || !$field_output) {
+      continue;
+    }
+
     if ($row_plugin->isFieldVisible($field, $field_output)) {
       $destination = $row_plugin->getMappingDestination('views_row', $field_name, $options);
       $fields[$destination][] = $field_output;
